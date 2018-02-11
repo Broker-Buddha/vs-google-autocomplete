@@ -1,5 +1,5 @@
 {
-  "name": "vsGoogleAutocomplete",
+  "name": "vs-google-autocomplete",
   "version": "0.5.0",
   "description": "AngularJS module for easy autocomplete through the Google Maps JavaScript API v3",
   "repository": {

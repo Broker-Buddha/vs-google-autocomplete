@@ -141,7 +141,8 @@ angular.module('vsGoogleAutocomplete').directive('vsGoogleAutocomplete', ['vsGoo
 			vsPostCode: '=?',
 			vsLatitude: '=?',
 			vsLongitude: '=?',
-			vsDistrict: '=?'
+			vsDistrict: '=?',
+			blurChange: '='
 		},
 		controller: ['$scope', '$attrs', function($scope, $attrs) {
 			this.isolatedScope = $scope;
@@ -192,15 +193,17 @@ angular.module('vsGoogleAutocomplete').directive('vsGoogleAutocomplete', ['vsGoo
 			});
 
 			// updates view value on focusout
-			element.on('blur', function(event) {
-				viewValue = (place && place.formatted_address) ? viewValue : modelCtrl.$viewValue;
-				$timeout(function() {
-					scope.$apply(function() {
-						modelCtrl.$setViewValue(viewValue);
-						modelCtrl.$render();
+			if (scope.blurChange) {
+				element.on('blur', function(event) {
+					viewValue = (place && place.formatted_address) ? viewValue : modelCtrl.$viewValue;
+					$timeout(function() {
+						scope.$apply(function() {
+							modelCtrl.$setViewValue(viewValue);
+							modelCtrl.$render();
+						});
 					});
 				});
-			});
+			}
 
 			// prevent submitting form on enter
 			google.maps.event.addDomListener(element[0], 'keydown', function(e) {
