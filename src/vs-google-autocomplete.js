@@ -70,6 +70,13 @@ angular.module('vsGoogleAutocomplete').factory('vsGooglePlaceUtility', function(
 		return state;
 	}
 
+	function getStateName(place) {
+		var COMPONENT_TEMPLATE = { administrative_area_level_1: 'long_name' },
+			state = getAddrComponent(place, COMPONENT_TEMPLATE);
+
+		return state;
+	}
+
 	function getDistrict(place) {
 		var COMPONENT_TEMPLATE = { administrative_area_level_2: 'short_name' },
 			state = getAddrComponent(place, COMPONENT_TEMPLATE);
@@ -115,6 +122,7 @@ angular.module('vsGoogleAutocomplete').factory('vsGooglePlaceUtility', function(
 		getStreet: getStreet,
 		getCity: getCity,
 		getState: getState,
+		getStateName: getStateName,
 		getCountryShort: getCountryShort,
 		getCountry: getCountry,
 		getLatitude: getLatitude,
@@ -136,6 +144,7 @@ angular.module('vsGoogleAutocomplete').directive('vsGoogleAutocomplete', ['vsGoo
 			vsStreet: '=?',
 			vsCity: '=?',
 			vsState: '=?',
+			vsStateName: '=?',
 			vsCountryShort: '=?',
 			vsCountry: '=?',
 			vsPostCode: '=?',
@@ -159,6 +168,7 @@ angular.module('vsGoogleAutocomplete').directive('vsGoogleAutocomplete', ['vsGoo
 				$scope.vsCity          = !!$attrs.vsCity && place         ? vsGooglePlaceUtility.getCity(place)         : undefined;
 				$scope.vsPostCode      = !!$attrs.vsPostCode && place     ? vsGooglePlaceUtility.getPostCode(place)     : undefined;
 				$scope.vsState         = !!$attrs.vsState && place        ? vsGooglePlaceUtility.getState(place)        : undefined;
+				$scope.vsStateName     = !!$attrs.vsStateName && place    ? vsGooglePlaceUtility.getStateName(place)    : undefined;
 				$scope.vsCountryShort  = !!$attrs.vsCountryShort && place ? vsGooglePlaceUtility.getCountryShort(place) : undefined;
 				$scope.vsCountry       = !!$attrs.vsCountry && place      ? vsGooglePlaceUtility.getCountry(place)      : undefined;
 				$scope.vsLatitude      = !!$attrs.vsLatitude && place     ? vsGooglePlaceUtility.getLatitude(place)     : undefined;
