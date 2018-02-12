@@ -142,7 +142,8 @@ angular.module('vsGoogleAutocomplete').directive('vsGoogleAutocomplete', ['vsGoo
 			vsLatitude: '=?',
 			vsLongitude: '=?',
 			vsDistrict: '=?',
-			blurChange: '='
+			blurChange: '=',
+			onPlaceSelected: '&'
 		},
 		controller: ['$scope', '$attrs', function($scope, $attrs) {
 			this.isolatedScope = $scope;
@@ -189,6 +190,7 @@ angular.module('vsGoogleAutocomplete').directive('vsGoogleAutocomplete', ['vsGoo
 					autocompleteCtrl.updatePlaceComponents(place);
 					modelCtrl.$setViewValue(viewValue);
 					modelCtrl.$render();
+					scope.onPlaceSelected();
 				});
 			});
 
